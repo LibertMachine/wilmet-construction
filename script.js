@@ -24,3 +24,21 @@ Project details:
 ${data.get('message')}`);
   window.location.href = `mailto:wilmetconstruction@gmail.com?subject=${subject}&body=${body}`;
 });
+
+// Back to Top Button
+const backToTopButton = document.getElementById("backToTop");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 400) {
+    backToTopButton.classList.add("show");
+  } else {
+    backToTopButton.classList.remove("show");
+  }
+});
+
+backToTopButton.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});

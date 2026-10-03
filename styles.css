@@ -6,3 +6,106 @@
   object-fit: cover;
   object-position: center 100%;
 }
+
+/* =========================
+   BACK TO TOP BUTTON
+========================= */
+
+.back-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #171717;
+  color: #fff;
+
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+
+  cursor: pointer;
+  z-index: 1000;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s ease,
+    background 0.2s ease;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: #000;
+  transform: translateY(-3px);
+}
+
+.back-to-top:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .back-to-top {
+    right: 16px;
+    bottom: 16px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ========================================
+   HERO SERVICE LIST — PREMIUM HOVER
+======================================== */
+
+.hero-panel > p {
+  position: relative;
+  cursor: default;
+
+  transition:
+    color 0.3s ease,
+    padding-left 0.3s ease;
+}
+
+/* Gold accent that sweeps across the divider */
+.hero-panel > p::after {
+  content: "";
+  position: absolute;
+
+  left: 0;
+  bottom: -1px;
+
+  width: 0;
+  height: 1px;
+
+  background: #e5b94b;
+  transition: width 0.4s ease;
+}
+
+/* Hover effect */
+.hero-panel > p:hover {
+  color: #e5b94b;
+  padding-left: 10px;
+}
+
+.hero-panel > p:hover::after {
+  width: 100%;
+}
