@@ -42,3 +42,11 @@ backToTopButton.addEventListener("click", () => {
     behavior: "smooth"
   });
 });
+
+// Carry the selected service into the existing estimate form.
+document.querySelectorAll('[data-service]').forEach(link => {
+  link.addEventListener('click', () => {
+    const select = document.querySelector('#estimate-form select[name="service"]');
+    if (select) select.value = link.dataset.service;
+  });
+});
