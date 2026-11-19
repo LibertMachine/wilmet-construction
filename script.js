@@ -10,19 +10,64 @@ nav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
 }));
 document.getElementById('year').textContent = new Date().getFullYear();
 
-document.getElementById('estimate-form')?.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const data = new FormData(event.currentTarget);
-  const subject = encodeURIComponent(`Estimate request from ${data.get('name')}`);
-  const body = encodeURIComponent(
-`Name: ${data.get('name')}
-Phone: ${data.get('phone')}
-Email: ${data.get('email') || 'Not provided'}
-Service: ${data.get('service')}
+const estimateForm = document.getElementById('estimate-form');
+const status = document.getElementById('estimate-status');
+const submitButton = estimateForm.querySelector('button[type="submit"]');
+const directDelivery = estimateForm.dataset.delivery === 'direct';
+let previousPayload;
+let requestId;
 
-Project details:
-${data.get('message')}`);
-  window.location.href = `mailto:wilmetconstruction@gmail.com?subject=${subject}&body=${body}`;
+if (directDelivery) {
+  submitButton.textContent = 'Send estimate request ↗';
+  document.getElementById('estimate-note').textContent =
+    'Send your project details directly to Wilmet Construction.';
+}
+
+estimateForm.addEventListener('submit', async event => {
+  event.preventDefault();
+  if (submitButton.disabled) return;
+  const { name, phone, email, service, message, website } = Object.fromEntries(
+    new FormData(estimateForm),
+  );
+
+  if (!directDelivery) {
+    const subject = encodeURIComponent(`Estimate request from ${name}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nPhone: ${phone}\nEmail: ${email || 'Not provided'}\nService: ${service}\n\nProject details:\n${message}`,
+    );
+    window.location.href = `mailto:wilmetconstruction@gmail.com?subject=${subject}&body=${body}`;
+    return;
+  }
+
+  const details = { name, phone, email, service, message, website };
+  const payload = JSON.stringify(details);
+  if (payload !== previousPayload) {
+    previousPayload = payload;
+    requestId = crypto.randomUUID();
+  }
+  submitButton.disabled = true;
+  status.textContent = 'Sending your estimate request…';
+
+  try {
+    const response = await fetch(estimateForm.action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...details, requestId }),
+      signal: AbortSignal.timeout(12000),
+    });
+    const result = await response.json();
+    if (!response.ok || result.ok !== true) {
+      status.textContent = result.message || 'Please try again, or call or email Dante.';
+      return;
+    }
+    estimateForm.reset();
+    previousPayload = undefined;
+    status.textContent = result.message;
+  } catch {
+    status.textContent = 'We couldn’t confirm your request. Try again, or call or email Dante.';
+  } finally {
+    submitButton.disabled = false;
+  }
 });
 
 // Back to Top Button

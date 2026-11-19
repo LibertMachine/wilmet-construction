@@ -221,14 +221,17 @@
     <section class="contact section-pad" id="contact">
       <div class="container contact-grid">
         <div class="contact-copy"><p class="kicker">06 / LET'S BUILD</p><h2>Have a project<br><span>in mind?</span></h2><p>Tell Dante what you're planning and start with a straightforward conversation about the job.</p><div class="contact-details"><a href="tel:+19205950102"><small>PHONE</small><strong>920-595-0102</strong></a><a href="mailto:wilmetconstruction@gmail.com"><small>EMAIL</small><strong>wilmetconstruction@gmail.com</strong></a><div><small>SERVICE AREA</small><strong>Brown County & surrounding areas</strong></div></div></div>
-        <form class="estimate-form" id="estimate-form">
+        <form class="estimate-form" id="estimate-form" aria-describedby="estimate-note" method="post" action="/api/estimate" data-delivery="direct">
           <div class="form-head"><span>REQUEST AN ESTIMATE</span><span>WILMET CONSTRUCTION</span></div>
-          <div class="form-row"><label>Name *<input name="name" required placeholder="Your name"></label><label>Phone *<input name="phone" required type="tel" placeholder="(920) 555-0000"></label></div>
-          <label>Email<input name="email" type="email" placeholder="you@example.com"></label>
+          <div class="form-row"><label>Name *<input name="name" autocomplete="name" maxlength="100" required placeholder="Your name"></label><label>Phone *<input name="phone" autocomplete="tel" maxlength="40" required type="tel" placeholder="(920) 555-0000"></label></div>
+          <label>Email<input name="email" autocomplete="email" maxlength="254" type="email" placeholder="you@example.com"></label>
           <label>What do you need help with? *<select name="service" required><option value="">Select a service</option><option>New Construction</option><option>Remodeling</option><option>Framing</option><option>Roofing / Siding</option><option>Windows / Doors</option><option>Steel / Fencing</option><option>Finish Work</option><option>Decking</option><option>Other</option></select></label>
-          <label>Tell us about the project *<textarea name="message" required rows="5" placeholder="A few details about what you're planning..."></textarea></label>
+          <label>Tell us about the project *<textarea name="message" maxlength="4000" required rows="5" placeholder="A few details about what you're planning..."></textarea></label>
+          <div hidden><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
           <button class="button button-dark" type="submit">Prepare estimate request <span>↗</span></button>
-          <p class="form-note">Submitting opens an email to Wilmet Construction with your project details.</p>
+          <p class="form-note" id="estimate-note">Submitting opens an email to Wilmet Construction with your project details.</p>
+          <p id="estimate-status" role="status"></p>
+          <noscript><p>Call <a href="tel:+19205950102">920-595-0102</a> or email <a href="mailto:wilmetconstruction@gmail.com">wilmetconstruction@gmail.com</a> to request an estimate.</p></noscript>
         </form>
       </div>
     </section>
