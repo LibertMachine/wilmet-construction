@@ -63,11 +63,18 @@ estimateForm.addEventListener('submit', async event => {
     estimateForm.reset();
     previousPayload = undefined;
     status.textContent = result.message;
+    window.gtag?.('event', 'generate_lead');
   } catch {
     status.textContent = 'We couldn’t confirm your request. Try again, or call or email Dante.';
   } finally {
     submitButton.disabled = false;
   }
+});
+
+document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+  link.addEventListener('click', () => {
+    window.gtag?.('event', 'tap_to_call');
+  });
 });
 
 // Back to Top Button
