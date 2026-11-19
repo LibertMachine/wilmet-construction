@@ -16,10 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/png" href="assets/wilmet-favicon-64.png" sizes="64x64">
 
-  <link rel="icon" type="image/png" href="assets/wilmet-favicon.png">
-  
   
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
@@ -123,10 +121,16 @@
       <div class="container about-grid">
       <div class="about-visual">
   <img
-    src="assets/wilmet-owner-photo.jpg"
-    alt="Wilmet Construction project"
-    class="about-photo"
-  >
+  src="assets/wilmet-owner-photo-960.webp"
+  srcset="assets/wilmet-owner-photo-480.webp 480w, assets/wilmet-owner-photo-960.webp 960w"
+  sizes="(max-width: 458px) calc(100vw - 38px), 420px"
+  width="1536"
+  height="2048"
+  loading="lazy"
+  decoding="async"
+  alt="Wilmet Construction project"
+  class="about-photo"
+>
 
   <div class="badge">
     <strong>LOCAL</strong>
@@ -156,9 +160,15 @@
 
       <figure class="project project-large">
         <img
-          src="assets/wilmet-gate-photo.jpg"
+          src="assets/wilmet-gate-photo-960.webp"
+          srcset="assets/wilmet-gate-photo-480.webp 480w, assets/wilmet-gate-photo-960.webp 960w"
+          sizes="(max-width: 760px) calc(100vw - 38px), (max-width: 1344px) 55vw, 703px"
+          width="960"
+          height="1280"
+          loading="lazy"
+          decoding="async"
           alt="Wilmet Construction project"
-        >
+>
         <figcaption>
           <small>CONSTRUCTION</small>
           <strong>Quality starts with the details.</strong>
@@ -167,9 +177,15 @@
 
       <figure class="project">
         <img
-          src="assets/wilmet-web-photo.jpg"
-          alt="Wilmet Construction remodeling project"
-        >
+         src="assets/wilmet-web-photo-720.webp"
+         srcset="assets/wilmet-web-photo-480.webp 480w, assets/wilmet-web-photo-720.webp 720w"
+         sizes="(max-width: 760px) calc(100vw - 38px), (max-width: 1344px) 44vw, 562px"
+         width="720"
+         height="960"
+         loading="lazy"
+         decoding="async"
+         alt="Wilmet Construction remodeling project"
+>
         <figcaption>
           <small>REMODELING</small>
           <strong>Built around the way you live.</strong>
@@ -177,10 +193,16 @@
       </figure>
 
       <figure class="project">
-        <img 
-         class="roof-photo"
-         src="assets/wilmet-ariel-view.jpg" 
-        alt="Wilmet Construction exterior project" 
+        <img
+        class="roof-photo"
+        src="assets/wilmet-ariel-view-960.webp"
+        srcset="assets/wilmet-ariel-view-480.webp 480w, assets/wilmet-ariel-view-960.webp 960w"
+        sizes="(max-width: 760px) calc(100vw - 38px), (max-width: 1344px) 44vw, 562px"
+        width="960"
+        height="785"
+        loading="lazy"
+        decoding="async"
+        alt="Wilmet Construction exterior project"
 >
         <figcaption>
           <small>EXTERIORS</small>
