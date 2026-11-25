@@ -102,3 +102,62 @@ document.querySelectorAll('[data-service]').forEach(link => {
     if (select) select.value = link.dataset.service;
   });
 });
+
+{
+  const track = document.querySelector("#testimonial-track");
+  const controls = document.querySelector(".testimonial-controls");
+  const pauseButton = controls?.querySelector("[data-review-pause]");
+
+  if (track && controls && pauseButton && track.children.length > 1) {
+    const cards = [...track.children];
+    const section = track.closest(".testimonials");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let current = 0;
+    let paused = reducedMotion.matches;
+    let timer;
+
+    function show(index) {
+      current = (index + cards.length) % cards.length;
+      cards.forEach((card, i) => { card.hidden = i !== current; });
+    }
+
+    function restartTimer() {
+      clearInterval(timer);
+      if (!paused) {
+        timer = setInterval(() => {
+          if (!document.hidden && !section.matches(":hover, :focus-within")) {
+            show(current + 1);
+          }
+        }, 6000);
+      }
+    }
+
+    function updatePauseButton() {
+      pauseButton.textContent = paused ? "▶" : "⏸";
+      pauseButton.setAttribute(
+        "aria-label",
+        paused ? "Play automatic reviews" : "Pause automatic reviews"
+      );
+    }
+
+    track.classList.add("is-rotating");
+    track.setAttribute("aria-label", "Customer recommendations");
+    controls.hidden = false;
+    show(0);
+    updatePauseButton();
+    restartTimer();
+
+    controls.querySelectorAll("[data-review-step]").forEach((button) => {
+      button.addEventListener("click", () => {
+        show(current + Number(button.dataset.reviewStep));
+        restartTimer();
+      });
+    });
+
+    pauseButton.addEventListener("click", () => {
+      paused = !paused;
+      updatePauseButton();
+      restartTimer();
+    });
+  }
+}
